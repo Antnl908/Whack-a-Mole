@@ -18,12 +18,12 @@ namespace Whack_a_Mole
             this.spriteBatch = spriteBatch;
             this.assetLibrary = assetLibrary;
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
 
         }
 
-        public void Draw()
+        public void Draw(GameTime gameTime)
         {
             //spriteBatch.Draw();
         }

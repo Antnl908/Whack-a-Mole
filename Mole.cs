@@ -28,7 +28,7 @@ namespace Whack_a_Mole
         public Rectangle sourceRect;
         float timer;
 
-        int y;
+        public int y;
         int ny = 2;
         int maxTime = 60;
         int speed = 4;
@@ -67,13 +67,17 @@ namespace Whack_a_Mole
                     //timer = maxTime;
                     if (y > -this.sourceRect.Height) { y -= speed; } else { y = -this.sourceRect.Height + 1; state = AssetLibrary.State.Inactive; /*AssetLibrary.State.Inactive;*/ }
                     break;
+                
+                case AssetLibrary.State.Hit:
+                    if (y > -this.sourceRect.Height) { y -= speed * 2; } else { y = -this.sourceRect.Height + 1; state = AssetLibrary.State.Inactive; /*AssetLibrary.State.Inactive;*/ }
+                    break;
 
                 case AssetLibrary.State.Idle: //AssetLibrary.State.Idle:
                     timer++; if (timer >= maxTime) { state = AssetLibrary.State.GoingDown; /*AssetLibrary.State.GoingDown;*/ timer = 0; y -= 2; }
                     break;
 
                 case AssetLibrary.State.Inactive: //AssetLibrary.State.Inactive:
-                    timer++; if (timer >= maxTime) { state = AssetLibrary.State.GoingUp; /*AssetLibrary.State.GoingUp;*/ timer = 0; y += 2; }
+                    //timer++; if (timer >= maxTime) { state = AssetLibrary.State.GoingUp; /*AssetLibrary.State.GoingUp;*/ timer = 0; y += 2; }
                     break;
             }
         }
@@ -86,6 +90,7 @@ namespace Whack_a_Mole
             //spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[(int)state]], rect, sourceRect, Color.White, 0f, new Vector2(assetLibrary.sprites[assetLibrary.animationState[(int)state]].Width / 2, assetLibrary.sprites[assetLibrary.animationState[(int)state]].Height / 2), SpriteEffects.None, 1);
             //spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[(int)state]], rect, sourceRect, Color.White, 0f, new Vector2(assetLibrary.sprites[assetLibrary.animationState[(int)state]].Width / 2, assetLibrary.sprites[assetLibrary.animationState[(int)state]].Height / 2), SpriteEffects.None, 1);
             spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[(int)state]], rect, sourceRect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[(int)state]], rect, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[(int)state]], rect, Color.White);
             spriteBatch.DrawString(assetLibrary.font, $"{state}", new Vector2(rect.X, rect.Y), Color.Black);
         }
@@ -98,6 +103,7 @@ namespace Whack_a_Mole
         public void SetPosition(Vector2 position)
         {
             this.position = position;
+            UpdateRect();
         }
         
         public Vector2 GetPosition()
@@ -122,10 +128,15 @@ namespace Whack_a_Mole
         void UpdateSourceRectangle()
         {
             this.sourceRect.Y = (int)y;
-            if (y > 0) { state = AssetLibrary.State.Idle; /*ny = -ny;*/ }
-            if (y < -this.sourceRect.Height) { state = AssetLibrary.State.Inactive; /*ny = -ny;*/ }
+            //if (y > 0) { state = AssetLibrary.State.Idle; /*ny = -ny;*/ }
+            //if (y < -this.sourceRect.Height) { state = AssetLibrary.State.Inactive; /*ny = -ny;*/ }
             this.sourceRect.Width = (int)assetLibrary.sprites[assetLibrary.animationState[(int)state]].Width;
             this.sourceRect.Height = (int)assetLibrary.sprites[assetLibrary.animationState[(int)state]].Height;
+        }
+
+        public void ResetTimer()
+        {
+            timer = 0;
         }
     }
 }

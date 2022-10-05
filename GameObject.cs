@@ -12,10 +12,11 @@ namespace Whack_a_Mole
     internal class GameObject
     {
         AssetLibrary library;
+        SpriteBatch spriteBatch;
         //public enum State{ Inactive, GoingUp, Idle, GoingDown, Hit }
         public AssetLibrary.State state; // = State.Idle;
-        public Dictionary<string, Texture2D> sprites = new Dictionary<string, Texture2D>();
-        string name;
+        //public Dictionary<string, Texture2D> sprites = new Dictionary<string, Texture2D>();
+        //string name;
         public Texture2D texture;
         public SpriteFont font;
         Model model;
@@ -31,9 +32,10 @@ namespace Whack_a_Mole
         int speed = 4;
 
         public int radius;
-        public GameObject(AssetLibrary library)//(string name, Texture2D texture = default, Model model = default)
+        public GameObject(SpriteBatch spriteBatch, AssetLibrary library)//(string name, Texture2D texture = default, Model model = default)
         {
             this.library = library;
+            this.spriteBatch = spriteBatch;
             this.rect = new Rectangle();
             //this.state = state;
             //this.name = name;
@@ -44,6 +46,8 @@ namespace Whack_a_Mole
             animationState[(int)State.Idle] = "Idle";
             animationState[(int)State.GoingDown] = "GoingDown";
             animationState[(int)State.Hit] = "Hit";*/
+            
+
         }
 
         public void AddTexture(Texture2D tex)
@@ -71,25 +75,28 @@ namespace Whack_a_Mole
             //y += ny;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
+            
             //spriteBatch.Draw(sprites["Idle"], new Vector2(100, 200), Color.White);
             //spriteBatch.Draw(sprites[animationState[(int)state]], new Vector2(100, 200), Color.White);
             //spriteBatch.Draw(sprites[animationState[(int)state]], this.position, Color.White);
 
             //spriteBatch.Draw(library.sprites[library.animationState[(int)state]], this.position, Color.White);
-            
-            UpdateRectangle();
-            UpdateSourceRectangle();
+
+            //UpdateRectangle();
+            //UpdateSourceRectangle();
             //spriteBatch.Draw(library.sprites[library.animationState[(int)state]], rect, Color.White);
             //spriteBatch.Draw(library.sprites[library.animationState[(int)state]], rect, null, Color.White, 0f, new Vector2(library.sprites[library.animationState[(int)state]].Width/2, library.sprites[library.animationState[(int)state]].Height / 2), SpriteEffects.None, 1);
-            spriteBatch.Draw(library.sprites[library.animationState[(int)state]], rect, sourceRect, Color.White, 0f, new Vector2(library.sprites[library.animationState[(int)state]].Width/2, library.sprites[library.animationState[(int)state]].Height / 2), SpriteEffects.None, 1);
+            //spriteBatch.Draw(library.sprites[library.animationState[(int)state]], rect, sourceRect, Color.White, 0f, new Vector2(library.sprites[library.animationState[(int)state]].Width/2, library.sprites[library.animationState[(int)state]].Height / 2), SpriteEffects.None, 1);
+            spriteBatch.Draw(library.sprites[library.animationState[(int)state]], rect, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(library.sprites[library.animationState[(int)state]], rect, sourceRect, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 1);
         }
 
         public void SetPosition(Vector2 pos)
         {
             this.position = pos;
+            UpdateRectangle();
         }
 
         public void SetState(AssetLibrary.State state)
@@ -117,6 +124,20 @@ namespace Whack_a_Mole
             this.rect.Height = (int)library.sprites[library.animationState[(int)state]].Height;
         }
 
+        public void SetScale(Vector2 scale)
+        {
+            if(scale.X != 0)
+            {
+                this.rect.Width = (int)scale.X;
+            }
+            if(scale.Y != 0)
+            {
+                this.rect.Height = (int)scale.Y;
+            }
+            
+            
+        }
+
         void UpdateSourceRectangle()
         {
             this.sourceRect.Y = (int)y;
@@ -134,6 +155,11 @@ namespace Whack_a_Mole
         public Vector2 GetPosition()
         {
             return new Vector2(rect.X, rect.Y);
+        }
+
+        public Vector2 GetHeight()
+        {
+            return new Vector2(0, library.sprites[library.animationState[(int)state]].Height);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Whack_a_Mole
                 }
             }
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             foreach(Mole m in moles)
             {
@@ -49,7 +49,7 @@ namespace Whack_a_Mole
             }
         }
 
-        public void Draw()
+        public void Draw(GameTime gameTime)
         {
             //spriteBatch.Draw();
             foreach (Mole m in moles)

@@ -22,7 +22,7 @@ namespace Whack_a_Mole
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
@@ -59,7 +59,7 @@ namespace Whack_a_Mole
 
             // TODO: Add your update logic here
 
-            UpdateGamestate();
+            UpdateGamestate(gameTime);
 
             base.Update(gameTime);
         }
@@ -71,19 +71,19 @@ namespace Whack_a_Mole
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            DrawGamestate();
+            DrawGamestate(gameTime);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
 
-        void UpdateGamestate()
+        void UpdateGamestate(GameTime gameTime)
         {
-            states[(int)gameState].Update(); 
+            states[(int)gameState].Update(gameTime); 
         }
 
-        void DrawGamestate()
+        void DrawGamestate(GameTime gameTime)
         {
-            states[(int)gameState].Draw();
+            states[(int)gameState].Draw(gameTime);
         }
 
         public void SetState(GameState state)
