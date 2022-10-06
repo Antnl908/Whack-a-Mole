@@ -34,6 +34,8 @@ namespace Whack_a_Mole
         bool released = true;
         bool hit;
         int estimateDeadzone = 82;
+
+        Rock rock;
         //Vector2[,] positions = { { new Vector2(100, 100), new Vector2(300, 100), new Vector2(500, 100) }, { new Vector2(100, 200), new Vector2(300, 200), new Vector2(500, 200) }, { new Vector2(100, 300), new Vector2(300, 300), new Vector2(500, 300) } };
 
         MouseState mouseState;
@@ -79,6 +81,9 @@ namespace Whack_a_Mole
             background.SetScale(new Vector2(x*5,0));
             background.state = AssetLibrary.State.Yard;
             spawnManager = new SpawnManager(gameObject);
+
+            rock = new Rock(spriteBatch, assetLibrary, 4,4, new Vector2(200, 200));
+
             timer.SetTime(30);
         }
         public void Update(GameTime gameTime)
@@ -121,6 +126,8 @@ namespace Whack_a_Mole
                 }
             }
 
+            rock.Update();
+
             
             
         }
@@ -147,6 +154,8 @@ namespace Whack_a_Mole
             {
                 g.Draw(spriteBatch);
             }*/
+            rock.Draw();
+
             spriteBatch.DrawString(assetLibrary.font, $"{timer.GetTime()}", new Vector2(mouseState.X, mouseState.Y), Color.Black);
         }
 
