@@ -12,7 +12,7 @@ namespace Whack_a_Mole
 {
     internal class AssetLibrary
     {
-        public enum State { Inactive, GoingUp, Idle, GoingDown, Hit, Yard, Hole, ForegroundHole, Rock }
+        public enum State { Inactive, GoingUp, Idle, GoingDown, Hit, Yard, Hole, ForegroundHole, Rock, Mallet }
         public State state = State.Idle;
         public string[] animationState;
 
@@ -57,9 +57,13 @@ namespace Whack_a_Mole
             
             sprites.Add("ForegroundHole", foreHol);
             
-            Texture2D rock = contentManager.Load<Texture2D>("Rock");
+            Texture2D rock = contentManager.Load<Texture2D>("spritesheet_stone");
             
             sprites.Add("Rock", rock);
+            
+            Texture2D mallet = contentManager.Load<Texture2D>("mallet");
+            
+            sprites.Add("Mallet", mallet);
 
             font = contentManager.Load<SpriteFont>("Font");
 
@@ -67,7 +71,7 @@ namespace Whack_a_Mole
 
         void InitializeStates()
         {
-            animationState = new string[9];
+            animationState = new string[10];
 
             animationState[(int)State.Inactive] = "Inactive";
             animationState[(int)State.GoingUp] = "GoingUp";
@@ -78,6 +82,7 @@ namespace Whack_a_Mole
             animationState[(int)State.Hole] = "Hole";
             animationState[(int)State.ForegroundHole] = "ForegroundHole";
             animationState[(int)State.Rock] = "Rock";
+            animationState[(int)State.Mallet] = "Mallet";
         }
     }
 }

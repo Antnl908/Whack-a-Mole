@@ -13,6 +13,7 @@ namespace Whack_a_Mole
     {
         double timer;
         double totalTime;
+        double maxTime;
         public void Update(GameTime gameTime)
         {
             timer += gameTime.ElapsedGameTime.TotalSeconds;
@@ -21,14 +22,16 @@ namespace Whack_a_Mole
 
         public int GetTime()
         {
-            float tot = (float)totalTime;
-            int tim = (int)tot;
+            //float tot = (float)totalTime;
+            //int tim = (int)tot;
+            int tim = (int)totalTime;
             return tim;
         }
         
         public void SetTime(double time)
         {
             totalTime = time;
+            maxTime = time;
         }
 
         public double GetTimer()
@@ -39,6 +42,11 @@ namespace Whack_a_Mole
         public void SetTimer()
         {
             timer = 0;
+        }
+
+        public int GetMaxTime()
+        {
+            return (int)maxTime;
         }
     }
 }

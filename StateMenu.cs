@@ -18,10 +18,12 @@ namespace Whack_a_Mole
 
         Button[] buttons;
 
-        public StateMenu(SpriteBatch spriteBatch, AssetLibrary assetLibrary)
+
+        public StateMenu(SpriteBatch spriteBatch, AssetLibrary assetLibrary, Game game, Game1 gameClass)
         {
             this.spriteBatch = spriteBatch;
             this.assetLibrary = assetLibrary;
+            game.IsMouseVisible = true;
         }
         public void Update(GameTime gameTime)
         {
@@ -44,6 +46,16 @@ namespace Whack_a_Mole
                     buttons[i].Action();
                 }
             }
+        }
+
+        public bool mouseVisibility()
+        {
+            return true;
+        }
+
+        public void Reset()
+        {
+
         }
     }
 }

@@ -13,21 +13,25 @@ namespace Whack_a_Mole
     {
         AssetLibrary assetLibrary;
         AssetLibrary.State state = AssetLibrary.State.Rock;
+        SpriteBatch spriteBatch;
         Texture2D tex;
         Rectangle rect;
-        Rectanle source;
+        Rectangle source;
         int row;
         int col;
         int currentFrame;
         int totalFrames;
         public Vector2 position;
 
-        public Rock(SpriteBatch spriteBatch, AssetLibrary assetLibrary, int row, int col, Vector2 position = Vector2.Zero)
+        public Rock(SpriteBatch spriteBatch, AssetLibrary assetLibrary, Vector2 position = default)
         {
             this.assetLibrary = assetLibrary;
-            this.tex = assetLibrary.sprites[assetLibrary.animationState[state]];
-            this.row = row;
-            this.col = col;
+            this.tex = assetLibrary.sprites[assetLibrary.animationState[(int)state]];
+            this.spriteBatch =
+            this.spriteBatch = spriteBatch;
+            this.row = 4;
+            this.col = 4;
+            this.position = position;
             currentFrame = 0;
             totalFrames = row * col;
         }
@@ -39,19 +43,22 @@ namespace Whack_a_Mole
             {
                 currentFrame = 0;
             }
+            position.X -= 2;
+            position.Y += 1;
+
         }
 
         public void Draw()
         {
             int width = tex.Width / col;
             int height = tex.Height / row;
-            row = currentFrame / col;
-            col = currentFrame % col;
+            int rows = currentFrame / col;
+            int colu = currentFrame % col;
 
-            source = new Rectangle(width * col, height * row, width, height);
+            source = new Rectangle(width * colu, height * rows, width, height);
             rect = new Rectangle((int)position.X, (int)position.Y, width, height);
 
-            spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[state]], rect, source, Color.White);
+            spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[(int)state]], rect, source, Color.White);
         }
     }
 }

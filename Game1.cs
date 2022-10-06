@@ -14,6 +14,8 @@ namespace Whack_a_Mole
 
         public IStateInterface[] states = new IStateInterface [5];
 
+        public Scoreboard scoreboard = new Scoreboard();
+
         AssetLibrary assetLibrary = new AssetLibrary();
 
         //string[] textureName;
@@ -45,11 +47,11 @@ namespace Whack_a_Mole
             // TODO: use this.Content to load your game content here
             assetLibrary.LoadContent(Content);
 
-            states[(int)GameState.Intro] = new StateIntro(_spriteBatch, assetLibrary, this);
-            states[(int)GameState.Menu] = new StateMenu(_spriteBatch, assetLibrary);
-            states[(int)GameState.Game] = new StateGame(_spriteBatch, assetLibrary);
-            states[(int)GameState.GameOver] = new StateGameOver(_spriteBatch, assetLibrary);
-            states[(int)GameState.Scoreboard] = new StateScoreboard(_spriteBatch, assetLibrary);
+            states[(int)GameState.Intro] = new StateIntro(_spriteBatch, assetLibrary, this, this);
+            states[(int)GameState.Menu] = new StateMenu(_spriteBatch, assetLibrary, this, this);
+            states[(int)GameState.Game] = new StateGame(_spriteBatch, assetLibrary, this, this);
+            states[(int)GameState.GameOver] = new StateGameOver(_spriteBatch, assetLibrary, this, this);
+            states[(int)GameState.Scoreboard] = new StateScoreboard(_spriteBatch, assetLibrary, this, this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -78,7 +80,8 @@ namespace Whack_a_Mole
 
         void UpdateGamestate(GameTime gameTime)
         {
-            states[(int)gameState].Update(gameTime); 
+            states[(int)gameState].Update(gameTime);
+            IsMouseVisible = states[(int)gameState].mouseVisibility();
         }
 
         void DrawGamestate(GameTime gameTime)
@@ -89,6 +92,11 @@ namespace Whack_a_Mole
         public void SetState(GameState state)
         {
             this.gameState = state;
+        }
+        
+        public void ResetGame(GameState state)
+        {
+            //this.gameState = state;
         }
     }
 }

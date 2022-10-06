@@ -14,5 +14,9 @@ namespace Whack_a_Mole
         public void Update(GameTime gameTime);
 
         public void Draw(GameTime gameTime);
+
+        public bool mouseVisibility();
+
+        public void Reset();
     }
 }

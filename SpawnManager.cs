@@ -49,7 +49,14 @@ namespace Whack_a_Mole
                 int index = random.Next(0, moleList.Count - 1);
                 moleList[index].SetState(AssetLibrary.State.GoingUp);
                 moleList[index].ResetTimer();
+                int speed = random.Next(3, 6);
+                moleList[index].SetSpeed(speed);
             }
+        }
+
+        public void ResetInterval()
+        {
+            interval = random.Next(40, 180);
         }
     }
 }

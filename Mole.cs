@@ -50,6 +50,10 @@ namespace Whack_a_Mole
             }*/
             this.rect = new Rectangle(0, 0, assetLibrary.sprites[assetLibrary.animationState[(int)state]].Width, assetLibrary.sprites[assetLibrary.animationState[(int)state]].Height);
             this.texture = assetLibrary.sprites[assetLibrary.animationState[2]];
+
+            this.sourceRect.Width = (int)assetLibrary.sprites[assetLibrary.animationState[(int)state]].Width;
+            this.sourceRect.Height = (int)assetLibrary.sprites[assetLibrary.animationState[(int)state]].Height;
+
         }
         public void Update()
         {
@@ -92,7 +96,7 @@ namespace Whack_a_Mole
             spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[(int)state]], rect, sourceRect, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[(int)state]], rect, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(assetLibrary.sprites[assetLibrary.animationState[(int)state]], rect, Color.White);
-            spriteBatch.DrawString(assetLibrary.font, $"{state}", new Vector2(rect.X, rect.Y), Color.Black);
+            //spriteBatch.DrawString(assetLibrary.font, $"{state}", new Vector2(rect.X, rect.Y), Color.Black);
         }
 
         void CheckCollision()
@@ -137,6 +141,20 @@ namespace Whack_a_Mole
         public void ResetTimer()
         {
             timer = 0;
+        }
+
+        public void ResetMole()
+        {
+            y = -this.sourceRect.Height;
+            sourceRect.Y = (int)y;
+            state = AssetLibrary.State.Inactive;
+            timer = 0;
+            
+        }
+
+        public void SetSpeed(int speed)
+        {
+            this.speed = speed;
         }
     }
 }
